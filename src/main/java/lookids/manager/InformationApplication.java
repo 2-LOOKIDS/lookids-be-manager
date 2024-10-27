@@ -1,9 +1,11 @@
-package lookids.manager.information;
+package lookids.manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class InformationApplication {
 
 	public static void main(String[] args) {
