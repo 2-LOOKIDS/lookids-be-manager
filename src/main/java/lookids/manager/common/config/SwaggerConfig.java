@@ -17,8 +17,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .addServersItem(new Server().url("/"))
-                .info(new Info().title("feed API")
-                        .description("feed API 문서입니다."))
+                .info(new Info().title("manager API")
+                        .description("manager API 문서입니다."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
