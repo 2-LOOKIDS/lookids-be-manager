@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class EventRequestVo {
+public class EventUpdateRequestVo {
 
 	private String thumbnail;
 	private String eventName;

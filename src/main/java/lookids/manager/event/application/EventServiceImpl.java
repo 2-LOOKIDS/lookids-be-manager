@@ -2,6 +2,7 @@ package lookids.manager.event.application;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,9 @@ import lookids.manager.common.entity.BaseResponseStatus;
 import lookids.manager.common.exception.BaseException;
 import lookids.manager.event.domain.Event;
 import lookids.manager.event.dto.in.EventRequestDto;
+import lookids.manager.event.dto.in.EventUpdateRequestDto;
 import lookids.manager.event.dto.out.EventResponseDto;
 import lookids.manager.event.infrastructure.EventRepository;
-import lookids.manager.event.vo.out.EventResponseVo;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +23,15 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public void createEvent(EventRequestDto eventRequestDto) {
-		eventRepository.save(eventRequestDto.toEntity());
+		String eventCode;
+		eventCode = UUID.randomUUID().toString();
+		eventRepository.save(eventRequestDto.toEntity(eventCode));
 	}
 
 	@Override
 	public EventResponseDto readEvent(String eventCode) {
 		return EventResponseDto.toDto(eventRepository.findByEventCode(eventCode)
-			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED)));
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_EVENT)));
 	}
 
 	@Override
@@ -48,17 +51,17 @@ public class EventServiceImpl implements EventService{
 	}
 
 	@Override
-	public void updateEvent(EventRequestDto eventRequestDto) {
-		Event event = eventRepository.findByEventCode(eventRequestDto.getEventCode())
-			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_USER));
-		event.update(eventRequestDto);
+	public void updateEvent(String eventCode, EventUpdateRequestDto eventUpdateRequestDto) {
+		Event event = eventRepository.findByEventCode(eventCode)
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_EVENT));
+		event.update(eventUpdateRequestDto);
 		eventRepository.save(event);
 	}
 
 	@Override
 	public void deleteEvent(String eventCode) {
 		Event event = eventRepository.findByEventCode(eventCode)
-			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
+			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_EVENT));
 		eventRepository.deleteByEventCode(eventCode);
 	}
 

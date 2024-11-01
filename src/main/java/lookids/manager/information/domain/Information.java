@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lookids.manager.common.entity.BaseEntity;
 import lookids.manager.information.dto.in.InformationRequestDto;
+import lookids.manager.information.dto.in.InformationUpdateRequestDto;
 
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class Information extends BaseEntity {
 	@Column(nullable = false)
 	private List<String> mediaUrls;
 
-	public void update(InformationRequestDto informationRequestDto) {
-		this.title = informationRequestDto.getTitle();
-		this.content = informationRequestDto.getContent();
-		this.mediaUrls = informationRequestDto.getMediaUrls();
+	public void update(InformationUpdateRequestDto informationUpdateRequestDto) {
+		this.title = informationUpdateRequestDto.getTitle();
+		this.content = informationUpdateRequestDto.getContent();
+		this.mediaUrls = informationUpdateRequestDto.getMediaUrls();
 	}
 }

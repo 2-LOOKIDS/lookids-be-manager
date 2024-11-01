@@ -17,14 +17,13 @@ import lookids.manager.event.vo.in.EventRequestVo;
 @AllArgsConstructor
 public class EventRequestDto {
 
-	private String eventCode;
 	private String thumbnail;
 	private String eventName;
 	private String content;
 	private String description;
 	private LocalDateTime expiredAt;
 
-	public Event toEntity() {
+	public Event toEntity(String eventCode) {
 		return Event.builder()
 			.eventCode(eventCode)
 			.thumbnail(thumbnail)
@@ -37,7 +36,6 @@ public class EventRequestDto {
 
 	public static EventRequestDto toDto(EventRequestVo eventRequestVo) {
 		return EventRequestDto.builder()
-			.eventCode(eventRequestVo.getEventCode())
 			.thumbnail(eventRequestVo.getThumbnail())
 			.eventName(eventRequestVo.getEventName())
 			.content(eventRequestVo.getContent())

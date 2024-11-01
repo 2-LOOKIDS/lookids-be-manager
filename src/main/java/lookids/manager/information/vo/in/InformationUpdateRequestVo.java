@@ -7,9 +7,8 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class InformationRequestVo {
+public class InformationUpdateRequestVo {
 
-	private String managerUuid;
 	private String title;
 	private String content;
 	private List<String> mediaUrls;

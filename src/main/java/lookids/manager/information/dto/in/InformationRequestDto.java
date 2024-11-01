@@ -16,12 +16,11 @@ import lookids.manager.information.vo.in.InformationRequestVo;
 public class InformationRequestDto {
 
 	private String managerUuid;
-	private String feedCode;
 	private String title;
 	private String content;
 	private List<String> mediaUrls;
 
-	public Information toEntity() {
+	public Information toEntity(String feedCode) {
 		return Information.builder()
 			.managerUuid(managerUuid)
 			.feedCode(feedCode)
@@ -34,7 +33,6 @@ public class InformationRequestDto {
 	public static InformationRequestDto toDto(InformationRequestVo informationRequestVo) {
 		return InformationRequestDto.builder()
 			.managerUuid(informationRequestVo.getManagerUuid())
-			.feedCode(informationRequestVo.getFeedCode())
 			.title(informationRequestVo.getTitle())
 			.content(informationRequestVo.getContent())
 			.mediaUrls(informationRequestVo.getMediaUrls())

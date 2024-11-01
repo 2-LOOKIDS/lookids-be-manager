@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lookids.manager.common.entity.BaseEntity;
 import lookids.manager.event.dto.in.EventRequestDto;
+import lookids.manager.event.dto.in.EventUpdateRequestDto;
 
 @Getter
 @Entity
@@ -43,10 +44,10 @@ public class Event extends BaseEntity{
 	@Column(nullable = false)
 	private LocalDateTime expiredAt;
 
-	public void update(EventRequestDto eventRequestDto) {
-		this.eventName = eventRequestDto.getEventName();
-		this.content = eventRequestDto.getContent();
-		this.description = eventRequestDto.getDescription();
-		this.expiredAt = eventRequestDto.getExpiredAt();
+	public void update(EventUpdateRequestDto eventUpdateRequestDto) {
+		this.eventName = eventUpdateRequestDto.getEventName();
+		this.content = eventUpdateRequestDto.getContent();
+		this.description = eventUpdateRequestDto.getDescription();
+		this.expiredAt = eventUpdateRequestDto.getExpiredAt();
 	}
 }

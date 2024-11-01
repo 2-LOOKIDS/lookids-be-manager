@@ -17,8 +17,10 @@ import lookids.manager.common.entity.BaseResponse;
 import lookids.manager.common.entity.BaseResponseStatus;
 import lookids.manager.event.application.EventService;
 import lookids.manager.event.dto.in.EventRequestDto;
+import lookids.manager.event.dto.in.EventUpdateRequestDto;
 import lookids.manager.event.dto.out.EventResponseDto;
 import lookids.manager.event.vo.in.EventRequestVo;
+import lookids.manager.event.vo.in.EventUpdateRequestVo;
 import lookids.manager.event.vo.out.EventResponseVo;
 
 @RequiredArgsConstructor
@@ -54,14 +56,16 @@ public class EventController {
 		return new BaseResponse<>(eventService.readEvent(eventCode).toVo());
 	}
 
-	@Operation(summary = "Information 수정 API", description = "Information 수정 API 입니다.", tags = {"Event"})
+	@Operation(summary = "event 수정 API", description = "event 수정 API 입니다.", tags = {"Event"})
 	@PutMapping()
-	public BaseResponse<Void> updateEvent(@RequestBody EventRequestVo eventRequestVo) {
-		eventService.updateEvent(EventRequestDto.toDto(eventRequestVo));
+	public BaseResponse<Void> updateEvent(
+		@RequestParam String eventCode,
+		@RequestBody EventUpdateRequestVo eventUpdateRequestVo) {
+		eventService.updateEvent(eventCode, EventUpdateRequestDto.toDto(eventCode, eventUpdateRequestVo));
 		return new BaseResponse<>(BaseResponseStatus.SUCCESS);
 	}
 
-	@Operation(summary = "information 삭제 API", description = "information 삭제 API 입니다.", tags = {"Event"})
+	@Operation(summary = "event 삭제 API", description = "event 삭제 API 입니다.", tags = {"Event"})
 	@DeleteMapping
 	public BaseResponse<Void> deleteEvent(@RequestParam String eventCode) {
 		eventService.deleteEvent(eventCode);
