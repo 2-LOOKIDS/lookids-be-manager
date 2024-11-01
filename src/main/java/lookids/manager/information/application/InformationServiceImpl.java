@@ -1,16 +1,19 @@
 package lookids.manager.information.application;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import lookids.manager.common.entity.BaseResponseStatus;
 import lookids.manager.common.exception.BaseException;
 import lookids.manager.information.domain.Information;
 import lookids.manager.information.dto.in.InformationRequestDto;
+import lookids.manager.information.dto.in.InformationUpdateRequestDto;
 import lookids.manager.information.dto.out.InformationResponseDto;
 import lookids.manager.information.infrastructure.InformationRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +23,9 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	public void createInformation(InformationRequestDto informationRequestDto) {
-		informationRepository.save(informationRequestDto.toEntity());
+		String feedCode;
+		feedCode = UUID.randomUUID().toString();
+		informationRepository.save(informationRequestDto.toEntity(feedCode));
 	}
 
 	@Override
@@ -36,10 +41,10 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public void updateInformation(InformationRequestDto informationRequestDto) {
-		Information information = informationRepository.findByFeedCode(informationRequestDto.getFeedCode())
+	public void updateInformation(String feedCode, InformationUpdateRequestDto informationUpdateRequestDto) {
+		Information information = informationRepository.findByFeedCode(feedCode)
 			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
-		information.update(informationRequestDto);
+		information.update(informationUpdateRequestDto);
 		informationRepository.save(information);
 	}
 
