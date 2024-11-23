@@ -1,21 +1,23 @@
 package lookids.manager.policy.vo.out;
 
-import java.time.LocalDateTime;
-
-import org.w3c.dom.Text;
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@ToString
 public class PolicyResponseVo {
 
 	private String policyName;
 	private String content;
+
+	@Builder
+	public PolicyResponseVo(
+		String policyName,
+		String content
+	) {
+		this.policyName = policyName;
+		this.content = content;
+	}
 
 }

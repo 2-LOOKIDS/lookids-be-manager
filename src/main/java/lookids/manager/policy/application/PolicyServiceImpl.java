@@ -1,7 +1,5 @@
 package lookids.manager.policy.application;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -19,15 +17,18 @@ public class PolicyServiceImpl implements PolicyService{
 
 	@Override
 	public void createPolicy(PolicyRequestDto policyRequestDto) {
-		String policyCode;
-		policyCode = UUID.randomUUID().toString();
-		policyRepository.save(policyRequestDto.toEntity(policyCode));
+		policyRepository.save(policyRequestDto.toEntity());
 	}
 
 	@Override
 	public PolicyResponseDto readPolicy(String policyCode) {
 		return PolicyResponseDto.toDto(policyRepository.findByPolicyCode(policyCode)
 			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_POLICY)));
+	}
+
+	@Override
+	public void deletePolicy(String policyCode) {
+		policyRepository.deleteByPolicyCode(policyCode);
 	}
 
 }

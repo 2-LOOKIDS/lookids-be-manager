@@ -1,20 +1,26 @@
 package lookids.manager.policy.dto.out;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lookids.manager.policy.domain.Policy;
 import lookids.manager.policy.vo.out.PolicyResponseVo;
 
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 public class PolicyResponseDto {
 
 	private String policyName;
 	private String content;
+
+	@Builder
+	public PolicyResponseDto(
+		String policyName,
+		String content
+	) {
+		this.policyName = policyName;
+		this.content = content;
+	}
 
 	public static PolicyResponseDto toDto(Policy policy) {
 		return PolicyResponseDto.builder()
