@@ -9,4 +9,6 @@ import lookids.manager.policy.domain.Policy;
 public interface PolicyRepository extends JpaRepository<Policy, Long> {
 
 	Optional<Policy> findByPolicyCode(String policyCode);
+	void deleteByPolicyCode(String policyCode);
+
 }

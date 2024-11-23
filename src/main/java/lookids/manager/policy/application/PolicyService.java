@@ -7,4 +7,6 @@ public interface PolicyService {
 
 	void createPolicy(PolicyRequestDto policyRequestDto);
 	PolicyResponseDto readPolicy(String policyCode);
+	void deletePolicy(String policyCode);
+
 }

@@ -7,16 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @Entity
-@Builder
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
 public class Policy {
 
@@ -36,8 +32,13 @@ public class Policy {
 	@Column(nullable = false)
 	private LocalDateTime createdAt;
 
-	@PrePersist
-	public void prePersist() {
-		this.createdAt = LocalDateTime.now();
+	@Builder
+	public Policy(Long id, String policyCode, String policyName, String content, LocalDateTime createdAt) {
+		this.id = id;
+		this.policyCode = policyCode;
+		this.policyName = policyName;
+		this.content = content;
+		this.createdAt = createdAt;
 	}
+
 }

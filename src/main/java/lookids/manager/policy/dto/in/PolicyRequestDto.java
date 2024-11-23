@@ -1,29 +1,25 @@
 package lookids.manager.policy.dto.in;
 
-import org.w3c.dom.Text;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lookids.manager.policy.domain.Policy;
 import lookids.manager.policy.vo.in.PolicyRequestVo;
 
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 public class PolicyRequestDto {
 
 	private String policyName;
 	private String content;
 
-	public Policy toEntity(String policyCode) {
-		return Policy.builder()
-			.policyCode(policyCode)
-			.policyName(policyName)
-			.content(content)
-			.build();
+	@Builder
+	public PolicyRequestDto(String policyName, String content) {
+		this.policyName = policyName;
+		this.content = content;
 	}
 
 	public static PolicyRequestDto toDto(PolicyRequestVo policyRequestVo) {
@@ -32,4 +28,14 @@ public class PolicyRequestDto {
 			.content(policyRequestVo.getContent())
 			.build();
 	}
+
+	public Policy toEntity() {
+		return Policy.builder()
+			.policyName(policyName)
+			.content(content)
+			.policyCode(UUID.randomUUID().toString())
+			.createdAt(LocalDateTime.now())
+			.build();
+	}
+
 }
