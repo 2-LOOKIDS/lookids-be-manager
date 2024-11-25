@@ -35,4 +35,5 @@ public class PolicyResponseDto {
 			.content(content)
 			.build();
 	}
+
 }
