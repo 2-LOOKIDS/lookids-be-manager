@@ -12,6 +12,6 @@ public class InformationRequestVo {
 	private String managerUuid;
 	private String title;
 	private String content;
-	private List<String> mediaUrls;
+	private List<String> mediaUrlList;
 
 }

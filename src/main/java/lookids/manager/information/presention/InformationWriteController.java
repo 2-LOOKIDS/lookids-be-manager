@@ -17,8 +17,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/information")
-public class InformationController {
+@RequestMapping("/write/information")
+public class InformationWriteController {
 
 	private final InformationService informationService;
 
@@ -27,18 +27,6 @@ public class InformationController {
 	public BaseResponse<Void> createInformation(@RequestBody InformationRequestVo informationRequestVo) {
 		informationService.createInformation(InformationRequestDto.toDto(informationRequestVo));
 		return new BaseResponse<>(BaseResponseStatus.SUCCESS);
-	}
-	@Operation(summary = "InformationList 조회 API", description = "InformationList 조회 API 입니다.", tags = {"information"})
-	@GetMapping("/manager")
-	public BaseResponse<List<InformationResponseVo>> readInformationList(String managerUuid) {
-		List<InformationResponseDto> informationResponseDtoList = informationService.readInformationList(managerUuid);
-		return new BaseResponse<>(informationResponseDtoList.stream().map(InformationResponseDto::toVo).toList());
-	}
-
-	@Operation(summary = "information 조회 API", description = "information 조회 API 입니다.", tags = {"information"})
-	@GetMapping()
-	public BaseResponse<InformationResponseVo> readInformation(@RequestParam String feedCode) {
-		return new BaseResponse<>(informationService.readInformation(feedCode).toVo());
 	}
 
 	@Operation(summary = "Information 수정 API", description = "Information 수정 API 입니다.", tags = {"information"})

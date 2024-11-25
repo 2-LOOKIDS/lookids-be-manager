@@ -13,19 +13,26 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class SwaggerConfig {
 
+    private static final String BEARER_TOKEN_PREFIX = "Bearer";
+
     @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .addServersItem(new Server().url("/"))
-                .info(new Info().title("manager API")
-                        .description("manager API 문서입니다."))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth",
-                                new SecurityScheme()
-                                        .name("Authorization")
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")));
+    public OpenAPI openAPI() {
+
+        String securityJwtName = "JWT";
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList(securityJwtName);
+        Components components = new Components().addSecuritySchemes(securityJwtName,
+            new SecurityScheme().name(securityJwtName)
+                .type(SecurityScheme.Type.HTTP)
+                .scheme(BEARER_TOKEN_PREFIX)
+                .bearerFormat(securityJwtName));
+
+        return new OpenAPI().addSecurityItem(securityRequirement)
+            .components(components)
+            .addServersItem(new Server().url("/manager-service"))
+            .info(apiInfo());
+    }
+
+    private Info apiInfo() {
+        return new Info().title("MANAGER SERVICE 문서").description("lookids API 테스트를 위한 Swagger UI").version("1.0.0");
     }
 }

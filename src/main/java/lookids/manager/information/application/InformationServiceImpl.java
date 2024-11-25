@@ -23,9 +23,7 @@ public class InformationServiceImpl implements InformationService {
 
 	@Override
 	public void createInformation(InformationRequestDto informationRequestDto) {
-		String feedCode;
-		feedCode = UUID.randomUUID().toString();
-		informationRepository.save(informationRequestDto.toEntity(feedCode));
+		informationRepository.save(informationRequestDto.toEntity());
 	}
 
 	@Override
@@ -44,8 +42,7 @@ public class InformationServiceImpl implements InformationService {
 	public void updateInformation(String feedCode, InformationUpdateRequestDto informationUpdateRequestDto) {
 		Information information = informationRepository.findByFeedCode(feedCode)
 			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
-		information.update(informationUpdateRequestDto);
-		informationRepository.save(information);
+		informationRepository.save(informationUpdateRequestDto.toUpdate(information));
 	}
 
 	@Transactional

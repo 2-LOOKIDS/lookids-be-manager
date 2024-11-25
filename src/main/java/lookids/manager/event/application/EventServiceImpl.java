@@ -23,9 +23,7 @@ public class EventServiceImpl implements EventService{
 
 	@Override
 	public void createEvent(EventRequestDto eventRequestDto) {
-		String eventCode;
-		eventCode = UUID.randomUUID().toString();
-		eventRepository.save(eventRequestDto.toEntity(eventCode));
+		eventRepository.save(eventRequestDto.toEntity());
 	}
 
 	@Override
@@ -54,8 +52,7 @@ public class EventServiceImpl implements EventService{
 	public void updateEvent(String eventCode, EventUpdateRequestDto eventUpdateRequestDto) {
 		Event event = eventRepository.findByEventCode(eventCode)
 			.orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_EVENT));
-		event.update(eventUpdateRequestDto);
-		eventRepository.save(event);
+		eventRepository.save(eventUpdateRequestDto.toUpdate(event));
 	}
 
 	@Override

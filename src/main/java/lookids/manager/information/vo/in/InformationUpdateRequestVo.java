@@ -11,6 +11,6 @@ public class InformationUpdateRequestVo {
 
 	private String title;
 	private String content;
-	private List<String> mediaUrls;
+	private List<String> mediaUrlList;
 
 }

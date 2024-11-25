@@ -5,7 +5,7 @@ import static lookids.manager.common.entity.BaseResponseStatus.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
-public record BaseResponse<T>(HttpStatusCode httpStatus, Boolean isSuccess, String message, int code, T result) {
+public record BaseResponse<T>(HttpStatus httpStatus, Boolean isSuccess, String message, int code, T result) {
 
     /**
      * 필요값 : Http상태코드, 성공여부, 메시지, 에러코드, 결과값
@@ -37,6 +37,6 @@ public record BaseResponse<T>(HttpStatusCode httpStatus, Boolean isSuccess, Stri
      * @param status
      */
     public BaseResponse(lookids.manager.common.entity.BaseResponseStatus status) {
-        this(status.getHttpStatusCode(), status.isSuccess(), status.getMessage(), status.getCode(), null);
+        this(status.getHttpStatus(), status.isSuccess(), status.getMessage(), status.getCode(), null);
     }
 }

@@ -1,6 +1,7 @@
 package lookids.manager.event.dto.in;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.w3c.dom.Text;
 
@@ -23,9 +24,9 @@ public class EventRequestDto {
 	private String description;
 	private LocalDateTime expiredAt;
 
-	public Event toEntity(String eventCode) {
+	public Event toEntity() {
 		return Event.builder()
-			.eventCode(eventCode)
+			.eventCode(UUID.randomUUID().toString())
 			.thumbnail(thumbnail)
 			.eventName(eventName)
 			.content(content)

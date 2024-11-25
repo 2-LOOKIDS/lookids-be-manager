@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lookids.manager.event.domain.Event;
 import lookids.manager.event.vo.in.EventRequestVo;
 import lookids.manager.event.vo.in.EventUpdateRequestVo;
 
@@ -30,6 +31,18 @@ public class EventUpdateRequestDto {
 			.content(eventUpdateRequestVo.getContent())
 			.description(eventUpdateRequestVo.getDescription())
 			.expiredAt(eventUpdateRequestVo.getExpiredAt())
+			.build();
+	}
+
+	public Event toUpdate(Event event) {
+		return Event.builder()
+			.id(event.getId())
+			.eventCode(event.getEventCode())
+			.thumbnail(thumbnail)
+			.eventName(eventName)
+			.content(content)
+			.description(description)
+			.expiredAt(expiredAt)
 			.build();
 	}
 

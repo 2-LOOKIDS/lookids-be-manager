@@ -44,10 +44,4 @@ public class Event extends BaseEntity{
 	@Column(nullable = false)
 	private LocalDateTime expiredAt;
 
-	public void update(EventUpdateRequestDto eventUpdateRequestDto) {
-		this.eventName = eventUpdateRequestDto.getEventName();
-		this.content = eventUpdateRequestDto.getContent();
-		this.description = eventUpdateRequestDto.getDescription();
-		this.expiredAt = eventUpdateRequestDto.getExpiredAt();
-	}
 }

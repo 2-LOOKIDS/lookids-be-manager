@@ -19,16 +19,14 @@ public class InformationResponseDto {
 
 	private String title;
 	private String content;
-	private List<InformationMediaDto> mediaUrls;
+	private List<String> mediaUrlList;
 	private LocalDateTime createdAt;
 
 	public static InformationResponseDto toDto(Information information) {
 		return InformationResponseDto.builder()
 				.title(information.getTitle())
 				.content(information.getContent())
-				.mediaUrls(information.getMediaUrls().stream()
-						.map(InformationMediaDto::new)
-						.collect(Collectors.toList()))
+				.mediaUrlList(information.getMediaUrlList())
 				.createdAt(information.getCreatedAt())
 				.build();
 	}
@@ -37,7 +35,7 @@ public class InformationResponseDto {
 		return InformationResponseVo.builder()
 				.title(title)
 				.content(content)
-				.mediaUrls(mediaUrls)
+				.mediaUrlList(mediaUrlList)
 				.createdAt(createdAt)
 				.build();
 	}
